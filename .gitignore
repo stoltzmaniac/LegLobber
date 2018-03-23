@@ -1,3 +1,12 @@
+# Credentials
+api_credentials.json
+
+# Pycharm
+.idea/*
+
+# Data
+data/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
