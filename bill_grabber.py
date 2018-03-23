@@ -1,12 +1,14 @@
 import json
 from urllib.parse import urlencode
 from urllib.request import urlopen
+import pandas as pd
 
 
 # using the legiscan api: https://legiscan.com/legiscan (free tier)
 api_creds = json.load(open('api_credentials.json'))
 legiscan_token = api_creds['LEGISCAN_TOKEN']
 base_url = "https://api.legiscan.com/?"
+
 
 def get_bills_data(list_of_tuples):
     parameter_dict = {"key": legiscan_token}
@@ -27,7 +29,7 @@ def get_bills_data(list_of_tuples):
 def get_session_list(state):
     bills = get_bills_data([('op', 'getSessionList'), ('state', state)])
     if bills['status'] == 'OK':
-        return bills['sessions']
+        return pd.DataFrame(bills['sessions'])
     else:
         return "Error with API call"
 
@@ -39,7 +41,10 @@ def get_master_list(state, session_id=None):
         parameter_list.append(('id', session_id))
     bills = get_bills_data(parameter_list)
     if bills['status'] == 'OK':
-        return bills['masterlist']
+        bills = bills['masterlist']
+        del(bills['session'])
+        bills = [bill for bill in bills.values()]
+        return pd.DataFrame(bills)
     else:
         return "Error with API call"
 
@@ -48,6 +53,6 @@ def get_bill(bill_id):
     parameter_list = [('op', 'getBill'), ('id', bill_id)]
     bills = get_bills_data(parameter_list)
     if bills['status'] == 'OK':
-        return bills
+        return bills['bill']
     else:
         return "Error with API call"
