@@ -1,6 +1,9 @@
 import bill_grabber as bg
 
-co_session_list = bg.get_session_list('CO')
-co_master_list = bg.get_master_list('CO', '1477')
+state = 'CO'
+session_list = bg.get_session_list(state=state)
+master_list = bg.get_master_list(state=state)
+bill = bg.get_bill(bill_id='1053035')
 
+specific_master_list = bg.get_master_list(state, '1477')
 
