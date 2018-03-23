@@ -13,7 +13,7 @@ def main():
         zip_ref.extractall('./')
         zip_ref.close()
 
-    db = create_engine('postgresql://@localhost:5432/LegLobber')
+    db = create_engine('postgresql://@localhost:5432/leglobber')
 
     file_list = [{"table": 'bill_info', 'filename': "data/Bill_Information_and_Position_with_Income_of_Lobbyist_in_Colorado.csv"},
                  {"table": 'client_characterization', 'filename': "data/Characterization_of_Lobbyist_Clients_in_Colorado.csv"},
