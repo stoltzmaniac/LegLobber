@@ -3,6 +3,7 @@ api_credentials.json
 
 # Pycharm
 .idea/*
+tests/.pytest_cache
 
 # Data
 data/*
